@@ -13,6 +13,6 @@ class Link::CreatedLinkCell < Cell::Concept
   private
 
   def actual_url
-    url_for(controller: 'links', action: 'show', id: @model.unique_key, only_path: false)
+    "#{root_url}#{@model.unique_key}"
   end
 end
