@@ -3,12 +3,14 @@ class Link < ActiveRecord::Base
     URL_PROTOCOL_HTTP = "http://"
     REGEX_LINK_HAS_PROTOCOL = Regexp.new('\Ahttp:\/\/|\Ahttps:\/\/', Regexp::IGNORECASE)
     attr_reader :model
+
     def process(params)
       token = /^([#{Link::Create::CHARSET.join}]*).*/.match(params[:id])[1]
       @model = Link.find_by_unique_key(token)
-      @model.url = clean_url
       return invalid! unless @model
 
+      @model.url = clean_url
+      @model.increment!(:use_count)
       self
     end
 

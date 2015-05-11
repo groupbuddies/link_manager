@@ -1,10 +1,7 @@
 class Link < ActiveRecord::Base
   class Index < Trailblazer::Operation
-    include CRUD
-    model Link, :create
-
-    contract do
-      property :url, validates: { presence: true }
+    def process(params)
+      Link.all.order(created_at: :desc)
     end
   end
 end

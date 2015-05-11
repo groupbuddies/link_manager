@@ -7,6 +7,7 @@ class Link < ActiveRecord::Base
 
     contract do
       property :url, validates: { presence: true }
+      property :description, validates: { presence: true }
       property :unique_key, validates: { uniqueness: true }
     end
 
@@ -19,6 +20,8 @@ class Link < ActiveRecord::Base
     private
 
     def setup_params!(params)
+      return invalid! unless params[:link]
+
       unique_key = generate_unique_key
       params[:link].merge!(unique_key: unique_key)
     end

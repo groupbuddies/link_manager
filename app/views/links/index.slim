@@ -1,5 +1,33 @@
 h1 Group Buddies Link Manager
 
-= simple_form_for @form do |form|
-  = form.input :url, input_html: { class: "Input" }
-  = form.submit
+= simple_form_for @form, html: { class: "Form" } do |form|
+  = form.input :url,
+    input_html: { class: "Input", required: true },
+    wrapper_html: { class: "Form-inlineInput" }
+  = form.input :description,
+    input_html: { class: "Input", required: true },
+    wrapper_html: { class: "Form-inlineInput" }
+  = form.submit class: "Form-action"
+
+.Layout-divider
+
+table.Table
+  colgroup
+    col width=30
+    col width=30
+    col width=30
+    col width=10
+  thead
+    tr
+      th Long URL
+      th Created
+      th Short URL
+      th Clicks
+  tbody
+    - @links.each do |link|
+      tr
+        td = link_to link.url, link.url
+        td = link.created_at
+        td = raw concept 'link/created_link_cell', link
+        td.Table-centeredColumn = link.use_count
+

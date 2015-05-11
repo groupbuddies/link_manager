@@ -1,6 +1,7 @@
 class LinksController < ApplicationController
   def index
-    form Link::Index
+    form Link::Create
+    @links = Link::Index.(params)
   end
 
   def create
@@ -8,7 +9,8 @@ class LinksController < ApplicationController
       return redirect_to created_link_path(op.model)
     end
 
-    render :new
+    @links = Link::Index.(params)
+    render :index
   end
 
   def show

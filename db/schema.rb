@@ -11,16 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150510202706) do
+ActiveRecord::Schema.define(version: 20150511161002) do
 
   create_table "links", force: :cascade do |t|
     t.integer  "owner_id"
-    t.string   "owner_type", limit: 20
-    t.string   "url",                               null: false
-    t.string   "unique_key", limit: 10,             null: false
-    t.integer  "use_count",             default: 0, null: false
+    t.string   "owner_type",  limit: 20
+    t.string   "url",                                 null: false
+    t.string   "unique_key",  limit: 10,              null: false
+    t.integer  "use_count",              default: 0,  null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "description",            default: "", null: false
   end
 
   add_index "links", ["owner_id", "owner_type"], name: "index_links_on_owner_id_and_owner_type"
