@@ -24,6 +24,7 @@ class Link < ActiveRecord::Base
 
       unique_key = generate_unique_key
       params[:link].merge!(unique_key: unique_key)
+      params[:link][:url] = URLCleaner.new(params[:link][:url]).call
     end
 
     def generate_unique_key
