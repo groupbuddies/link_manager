@@ -8,4 +8,9 @@ head
 
 body
   .Layout
+    - if current_user.signed_in?
+      = link_to "Sign out", sign_out_path, method: :delete
+    - else
+      = link_to "Sign in with HQ", "http://hq.groupbuddies.com/oauth/authorize?redirect_uri=#{URI::escape(headquarters_callback_url)}&response_type=code&client_id=#{ENV['HQ_APP_ID']}"
+
     = yield
