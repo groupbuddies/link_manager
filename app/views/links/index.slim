@@ -26,8 +26,8 @@ table.Table
   tbody
     - @links.each do |link|
       tr
-        td = link_to link.url, link.url
-        td = link.created_at
-        td = raw concept 'link/created_link_cell', link
-        td.Table-centeredColumn = link.use_count
+        td.Table-cell = link_to link.url, link.url
+        td.Table-cell = link.created_at
+        td.Table-cell = raw concept 'link/created_link_cell', link
+        td.Table-cell.Table-centeredCell = link.use_count
 
