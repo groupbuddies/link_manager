@@ -11,23 +11,26 @@ h1 Group Buddies Link Manager
 
 .Layout-divider
 
-table.Table
-  colgroup
-    col width=30
-    col width=30
-    col width=30
-    col width=10
-  thead
-    tr
-      th Long URL
-      th Created
-      th Short URL
-      th Clicks
-  tbody
-    - @links.each do |link|
+- if @links.empty?
+  p You haven't shared links yet
+- else
+  table.Table
+    colgroup
+      col width=30
+      col width=30
+      col width=30
+      col width=10
+    thead
       tr
-        td.Table-cell = link_to link.url, link.url
-        td.Table-cell = link.created_at
-        td.Table-cell = raw concept 'link/created_link_cell', link
-        td.Table-cell.Table-centeredCell = link.use_count
+        th Long URL
+        th Created
+        th Short URL
+        th Clicks
+    tbody
+      - @links.each do |link|
+        tr
+          td.Table-cell = link_to link.url, link.url
+          td.Table-cell = link.created_at
+          td.Table-cell = raw concept 'link/created_link_cell', link
+          td.Table-cell.Table-centeredCell = link.use_count
 
