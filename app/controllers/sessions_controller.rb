@@ -1,11 +1,23 @@
 class SessionsController < ApplicationController
+  skip_before_action :require_login, except: :destroy
+
+  def new
+    if current_user.signed_in?
+      redirect_to links_path
+      return
+    else
+      render :new, layout: 'simple'
+    end
+  end
+
   def create_from_omniauth
     headquarters_user(auth_hash.info.email)
-    redirect_to root_path
+    redirect_to links_path
   end
 
   def destroy
-    session[:current_user] = nil
+    User::Store.delete cookies[:auth_token]
+    cookies[:auth_token] = nil
     redirect_to root_path
   end
 
@@ -18,9 +30,9 @@ class SessionsController < ApplicationController
     ).search(email).first
     return unless user_data
 
-    session[:current_user] = {}
-    session[:current_user][:name] = user_data['name']
-    session[:current_user][:email] = user_data['email']
+    cookies[:auth_token] = params[:code]
+    user = User.new user_data, params[:code]
+    User::Store.add user
   end
 
   def auth_hash

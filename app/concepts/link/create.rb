@@ -9,6 +9,7 @@ class Link < ActiveRecord::Base
       property :url, validates: { presence: true }
       property :description, validates: { presence: true }
       property :unique_key, validates: { uniqueness: true }
+      property :owner_email, validates: { presence: true }
     end
 
     def process(params)
@@ -23,8 +24,11 @@ class Link < ActiveRecord::Base
       return invalid! unless params[:link]
 
       unique_key = generate_unique_key
-      params[:link].merge!(unique_key: unique_key)
-      params[:link][:url] = URLCleaner.new(params[:link][:url]).call
+      params[:link].merge!(
+        unique_key: unique_key,
+        owner_email: params[:user_email],
+        url: URLCleaner.new(params[:link][:url]).call
+      )
     end
 
     def generate_unique_key

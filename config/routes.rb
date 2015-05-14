@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
-  root to: 'links#index'
+  root to: 'sessions#new'
 
   get '/auth/headquarters/callback' => 'sessions#create_from_omniauth', as: :headquarters_callback
   delete '/sign_out' => 'sessions#destroy', as: :sign_out
 
-  resources :links, only: [:create, :show]
+  resources :links, only: [:create, :show, :index]
   get '/created_link/:id' => 'created_links#show', as: :created_link
   get '/:id' => 'links#show'
 end
