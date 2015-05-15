@@ -25,7 +25,8 @@ class User
     end
 
     def self.remove(token)
-      self.users.delete token
+      self.users ||= {}
+      self.users.delete(token)
     end
   end
 
