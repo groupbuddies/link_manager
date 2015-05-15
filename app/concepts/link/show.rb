@@ -11,5 +11,9 @@ class Link < ActiveRecord::Base
       @model.increment!(:use_count)
       self
     end
+
+    def self.model_class
+      Link
+    end
   end
 end
