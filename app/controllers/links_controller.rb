@@ -16,7 +16,7 @@ class LinksController < ApplicationController
   end
 
   def show
-    run Link::Show do |op|
+    run Link::Show, params.merge(user_agent: request.user_agent) do |op|
       return redirect_to op.model.url, :status => :moved_permanently
     end
 

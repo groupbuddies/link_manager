@@ -8,12 +8,18 @@ class Link < ActiveRecord::Base
       return invalid! unless @model
 
       @model.url = URLCleaner.new(@model.url).call
-      @model.increment!(:use_count)
+      run_analytics(params)
       self
     end
 
     def self.model_class
       Link
+    end
+
+    def run_analytics(params)
+      return if params[:user_agent] =~ /Slackbot-LinkExpanding/
+
+      @model.increment!(:use_count)
     end
   end
 end
