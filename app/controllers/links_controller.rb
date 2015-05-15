@@ -1,4 +1,6 @@
 class LinksController < ApplicationController
+  skip_before_action :require_login, only: :show
+
   def index
     form Link::Create
     @links = Link::Index.(link_params)
