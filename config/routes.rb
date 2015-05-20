@@ -5,5 +5,6 @@ Rails.application.routes.draw do
   delete '/sign_out' => 'sessions#destroy', as: :sign_out
 
   resources :links, only: [:create, :show, :index]
+  post '/slack_hook' => 'slack_messages#create'
   get '/:id' => 'links#show'
 end
