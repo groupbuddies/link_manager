@@ -19,11 +19,11 @@ class SlackMessagesController < ApplicationController
 
     run Link::Create, link_params do |op|
       @new_link = op.model
-      render json: { text: "#{root_url}#{@new_link.unique_key}, from #{@new_link.url}" }
+      render json: { text: "#{root_url}#{@new_link.unique_key}" }
       return
     end
 
-    head 422
+    render json: { text: "Sorry #{params[:user_name]}, could not create a link for you." }
   end
 
   private
