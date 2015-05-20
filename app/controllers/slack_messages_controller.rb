@@ -29,6 +29,6 @@ class SlackMessagesController < ApplicationController
   private
 
   def clean_slack_formatting(url)
-    url.match(/<([^|]+)|/)[1]
+    url.match(/\s<([^|]+)|/)[1] || url
   end
 end
