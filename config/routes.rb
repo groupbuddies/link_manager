@@ -5,6 +5,5 @@ Rails.application.routes.draw do
   delete '/sign_out' => 'sessions#destroy', as: :sign_out
 
   resources :links, only: [:create, :show, :index]
-  get '/created_link/:id' => 'created_links#show', as: :created_link
   get '/:id' => 'links#show'
 end

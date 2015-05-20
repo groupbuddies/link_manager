@@ -8,7 +8,7 @@ class LinksController < ApplicationController
 
   def create
     run Link::Create, link_params do |op|
-      return redirect_to created_link_path(op.model)
+      @new_link = op.model
     end
 
     @links = Link::Index.(link_params)

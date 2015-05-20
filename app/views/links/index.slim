@@ -11,6 +11,13 @@ h1 Group Buddies Link Manager
 
 .Layout-divider
 
+- if @new_link
+  p
+    | Your shortened URL is:&nbsp;
+    = raw concept 'link/created_link_cell', @new_link
+
+.Layout-divider
+
 - if @links.empty?
   p You haven't shared links yet
 - else
