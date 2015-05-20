@@ -8,7 +8,7 @@ class SlackMessagesController < ApplicationController
       return
     end
 
-    url = params[:text][params[:trigger_word].size..-1]
+    url = clean_slack_formatting(params[:text][params[:trigger_word].size..-1])
     link_params = {
       link: {
         url: url,
@@ -24,5 +24,11 @@ class SlackMessagesController < ApplicationController
     end
 
     head 422
+  end
+
+  private
+
+  def clean_slack_formatting(url)
+    url.match(/<([^|]+)|/)[1]
   end
 end
